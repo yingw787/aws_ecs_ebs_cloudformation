@@ -27,21 +27,21 @@ function main {
     else
         region="$2"
     fi
-    
+
     echo "#Region: $region"
     echo "#Stack: $CloudFormationStack"
     echo "#---"
-    
+
     echo "#Checking if stack exists..."
     aws cloudformation wait stack-exists \
     --region $region \
     --stack-name $CloudFormationStack
-    
+
     echo "#Checking if stack creation is complete..."
     aws cloudformation wait stack-create-complete \
     --region $region \
     --stack-name $CloudFormationStack
-     
+
     echo "#Getting output keys and values..."
     echo "#---"
     aws cloudformation describe-stacks \
