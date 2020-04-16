@@ -205,7 +205,7 @@ Resources:
         - Key: Network
           Value: Public
 
-  MySQLTargetGroup:
+  PostgreSQLTargetGroup:
     Type: "AWS::ElasticLoadBalancingV2::TargetGroup"
     Properties:
       Port: 3306
@@ -218,7 +218,7 @@ Resources:
     Properties:
       DefaultActions:
         - Type: forward
-          TargetGroupArn: !Ref MySQLTargetGroup
+          TargetGroupArn: !Ref PostgreSQLTargetGroup
       LoadBalancerArn: !Ref NetworkLoadBalancer
       Port: 5432
       Protocol: TCP
@@ -299,9 +299,9 @@ Outputs:
     Description: The name of the ECS cluster
     Value: !Ref ECSCluster
 
-  MySQLTargetGroupArn:
-    Description: The Arn of the MySQL target group
-    Value: !Ref MySQLTargetGroup
+  PostgreSQLTargetGroupArn:
+    Description: The Arn of the PostgreSQL target group
+    Value: !Ref PostgreSQLTargetGroup
 
   NLBFullyQualifiedName:
     Description: The fully qualified name of the NLB
