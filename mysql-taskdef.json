@@ -11,25 +11,25 @@
             },
             "portMappings": [
                 {
-                    "containerPort": 3306,
+                    "containerPort": 5432,
                     "protocol": "tcp"
                 }
             ],
             "environment": [
                 {
-                    "name": "MYSQL_ROOT_PASSWORD",
+                    "name": "POSTGRES_PASSWORD",
                     "value": "my-secret-pw"
                 }
             ],
             "mountPoints": [
                 {
-                    "containerPath": "/var/lib/mysql",
+                    "containerPath": "/var/lib/postgresql/data",
                     "sourceVolume": "rexray-vol"
                 }
             ],
-            "image": "mysql",
+            "image": "postgres",
             "essential": true,
-            "name": "mysql"
+            "name": "postgres"
         }
     ],
     "placementConstraints": [
