@@ -191,9 +191,9 @@ Resources:
           IpProtocol: tcp
           ToPort: "22"
         - CidrIp: !Ref SSHLocation
-          FromPort: "3306"
+          FromPort: "5432"
           IpProtocol: tcp
-          ToPort: "3306"
+          ToPort: "5432"
       VpcId: !Ref VPC
 
   InternetGateway:
@@ -220,7 +220,7 @@ Resources:
         - Type: forward
           TargetGroupArn: !Ref MySQLTargetGroup
       LoadBalancerArn: !Ref NetworkLoadBalancer
-      Port: 3306
+      Port: 5432
       Protocol: TCP
 
   NetworkLoadBalancer:
