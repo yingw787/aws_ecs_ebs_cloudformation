@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#
+# Run script for tutorial in order to make sure nothing gets screwed up.
+
+set +x
+
+aws cloudformation create-stack --stack-name rexray-demo \
+--capabilities CAPABILITY_NAMED_IAM \
+--template-body file://rexray-demo.yaml \
+--parameters ParameterKey=KeyName,ParameterValue=admin
+
+bash get-outputs.sh && source <(bash get-outputs.sh)
+
+bash create-postgresql-taskdef-json.sh
+
+aws ec2 create-volume --size 1 --volume-type gp2 \
+--availability-zone $AvailabilityZone \
+--tag-specifications 'ResourceType=volume,Tags=[{Key=Name,Value=rexray-vol}]'
+
+TaskDefinitionArn=$(aws ecs register-task-definition --cli-input-json 'file://postgresql-taskdef.json' | jq -r .taskDefinition.taskDefinitionArn)
