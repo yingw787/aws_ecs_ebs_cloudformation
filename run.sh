@@ -18,3 +18,7 @@ aws ec2 create-volume --size 1 --volume-type gp2 \
 --tag-specifications 'ResourceType=volume,Tags=[{Key=Name,Value=rexray-vol}]'
 
 TaskDefinitionArn=$(aws ecs register-task-definition --cli-input-json 'file://postgresql-taskdef.json' | jq -r .taskDefinition.taskDefinitionArn)
+
+bash create-postgresql-svcdef-json.sh
+
+SvcDefinitionArn=$(aws ecs create-service --cli-input-json file://postgresql-svcdef.json | jq -r .service.serviceArn)
