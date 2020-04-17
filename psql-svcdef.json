@@ -1,0 +1,30 @@
+{
+    "cluster": "rexray-demo",
+    "serviceName": "postgres-svc",
+    "taskDefinition": "arn:aws:ecs:us-east-1:267131297086:task-definition/postgres:1",
+    "loadBalancers": [
+        {
+            "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:267131297086:targetgroup/rexra-MySQL-1GU8QPLNXSZW8/b2da37948339d2d9",
+            "containerName": "postgres",
+            "containerPort": 5432
+        }
+    ],
+    "desiredCount": 1,
+    "launchType": "EC2",
+    "healthCheckGracePeriodSeconds": 60,
+    "deploymentConfiguration": {
+        "maximumPercent": 100,
+        "minimumHealthyPercent": 0
+    },
+    "networkConfiguration": {
+        "awsvpcConfiguration": {
+            "subnets": [
+                "subnet-077769d6afa52f319"
+            ],
+            "securityGroups": [
+                "sg-0d49b6eb1433e0d3b"
+            ],
+            "assignPublicIp": "DISABLED"
+        }
+    }
+}
