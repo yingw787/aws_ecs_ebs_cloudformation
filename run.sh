@@ -4,12 +4,12 @@
 
 set +x
 
-aws cloudformation create-stack --stack-name rexray-demo \
+StackId=$(aws cloudformation create-stack --stack-name rexray-demo \
 --capabilities CAPABILITY_NAMED_IAM \
 --template-body file://rexray-demo.yaml \
---parameters ParameterKey=KeyName,ParameterValue=admin
+--parameters ParameterKey=KeyName,ParameterValue=admin | jq -r .StackId)
 
-bash get-outputs.sh && source <(bash get-outputs.sh)
+bash get-outputs.sh $StackId us-east-1 && source <(bash get-outputs.sh $StackId us-east-1)
 
 bash create-postgresql-taskdef-json.sh
 
